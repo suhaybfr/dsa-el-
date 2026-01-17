@@ -37,6 +37,10 @@ private:
     void updateGameOver();
     void resetGame();
 
+    // mouse helpers
+    bool isMouseOver(const sf::RectangleShape& button) const;
+    bool isMouseClicked(const sf::RectangleShape& button) const;
+
 private:
     sf::RenderWindow window;
     GameState state;
@@ -54,4 +58,11 @@ private:
     // enemy
     sf::CircleShape enemy;
     sf::Vector2f enemyVelocity;
+
+    // GUI
+    sf::RectangleShape startButton;
+    sf::RectangleShape exitButton;
+    sf::RectangleShape retryButton;
+
+    bool hasPlayedBefore;
 };

@@ -4,16 +4,35 @@
 #include <cstdlib>
 #include <ctime>
 
+constexpr float PLAYER_SPEED = 250.f;
+constexpr float ENEMY_SPEED = 1550.f;
+
+// ---------------- Constructor ----------------
 Game::Game()
     : window(sf::VideoMode({ 800, 600 }), "DSA Game Engine"),
     state(GameState::Menu),
-    quadTree(sf::FloatRect({ 0.f, 0.f }, { 800.f, 600.f }))
+    quadTree(sf::FloatRect({ 0.f, 0.f }, { 800.f, 600.f })),
+    hasPlayedBefore(false)
 {
     std::srand(static_cast<unsigned>(std::time(nullptr)));
 
-    std::cout << "MENU\nPress ENTER to start\n";
+    // ---- GUI buttons ----
+    startButton.setSize({ 220.f, 60.f });
+    startButton.setPosition({ 290.f, 220.f });
+    startButton.setFillColor(sf::Color::White);
+
+    exitButton.setSize({ 220.f, 60.f });
+    exitButton.setPosition({ 290.f, 310.f });
+    exitButton.setFillColor(sf::Color::White);
+
+    retryButton.setSize({ 220.f, 60.f });
+    retryButton.setPosition({ 290.f, 270.f });
+    retryButton.setFillColor(sf::Color::White);
+
+    std::cout << "MENU\nClick TOP box to START\nClick BOTTOM box to EXIT\n";
 }
 
+// ---------------- Main loop ----------------
 void Game::run()
 {
     while (window.isOpen())
@@ -25,6 +44,7 @@ void Game::run()
     }
 }
 
+// ---------------- Events ----------------
 void Game::processEvents()
 {
     while (auto e = window.pollEvent())
@@ -34,6 +54,7 @@ void Game::processEvents()
     }
 }
 
+// ---------------- Update dispatcher ----------------
 void Game::update(float dt)
 {
     if (state == GameState::Menu)
@@ -44,28 +65,68 @@ void Game::update(float dt)
         updateGameOver();
 }
 
-/* ================= MENU ================= */
+// ---------------- Mouse helpers ----------------
+bool Game::isMouseOver(const sf::RectangleShape& button) const
+{
+    sf::Vector2f mouse =
+        window.mapPixelToCoords(
+            sf::Mouse::getPosition(window));
 
+    return button.getGlobalBounds().contains(mouse);
+}
+
+bool Game::isMouseClicked(const sf::RectangleShape& button) const
+{
+    return isMouseOver(button) &&
+        sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
+}
+
+// ================= MENU =================
 void Game::updateMenu()
 {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter))
+    startButton.setFillColor(
+        isMouseOver(startButton) ? sf::Color(180, 180, 180)
+        : sf::Color::White);
+
+    exitButton.setFillColor(
+        isMouseOver(exitButton) ? sf::Color(180, 180, 180)
+        : sf::Color::White);
+
+    static bool printed = false;
+    if (!printed)
+    {
+        if (hasPlayedBefore)
+            std::cout << "MENU\nClick TOP box to CONTINUE\n";
+        else
+            std::cout << "MENU\nClick TOP box to START\n";
+
+        std::cout << "Click BOTTOM box to EXIT\n";
+        printed = true;
+    }
+
+    if (isMouseClicked(startButton))
     {
         resetGame();
         state = GameState::Playing;
+        printed = false;
+    }
+
+    if (isMouseClicked(exitButton))
+    {
+        window.close();
     }
 }
 
-/* ================= GAME ================= */
-
+// ================= GAME =================
 void Game::updateGame(float dt)
 {
     // ---- INPUT ----
     sf::Vector2f move(0.f, 0.f);
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) move.y -= 160.f * dt;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) move.y += 160.f * dt;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) move.x -= 160.f * dt;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) move.x += 160.f * dt;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) move.y -= PLAYER_SPEED * dt;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) move.y += PLAYER_SPEED * dt;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) move.x -= PLAYER_SPEED * dt;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) move.x += PLAYER_SPEED * dt;
 
     inputQueue.push({ move });
 
@@ -105,72 +166,82 @@ void Game::updateGame(float dt)
         .findIntersection(enemy.getGlobalBounds())
         .has_value())
     {
-        collisionEvents.push_front(quadTree.getQuadrant(center));
+        collisionEvents.push_front(
+            quadTree.getQuadrant(center));
     }
 
     if (collisionEvents.getHead())
     {
-        float survived = survivalClock.getElapsedTime().asSeconds();
+        float survived =
+            survivalClock.getElapsedTime().asSeconds();
+
         survivalStack.push(survived);
+        hasPlayedBefore = true;
 
         std::cout << "GAME OVER\nSurvived: "
             << survived << "s\n";
-        std::cout << "Press R to retry\n";
 
         state = GameState::GameOver;
     }
 }
 
-/* ================= GAME OVER ================= */
-
+// ================= GAME OVER =================
 void Game::updateGameOver()
 {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::R))
+    retryButton.setFillColor(
+        isMouseOver(retryButton) ? sf::Color(180, 180, 180)
+        : sf::Color::White);
+
+    if (isMouseClicked(retryButton))
     {
-        std::cout << "MENU\nPress ENTER to start\n";
         state = GameState::Menu;
     }
 }
 
-/* ================= RESET ================= */
-
+// ================= RESET =================
 void Game::resetGame()
 {
-    // RESET entity container (no clear())
     entities = DynamicArray<Block>();
 
-    // Player
     entities.push_back(Block(
         { 50.f, 50.f },
         { 30.f, 275.f },
         sf::Color::Green
     ));
 
-    // Enemy
     enemy.setRadius(18.f);
     enemy.setFillColor(sf::Color::Cyan);
     enemy.setPosition({ 400.f, 300.f });
 
-    float a = static_cast<float>(std::rand()) / RAND_MAX * 6.28318f;
+    float a =
+        static_cast<float>(std::rand()) / RAND_MAX * 6.28318f;
+
     enemyVelocity = {
-        std::cos(a) * 320.f,
-        std::sin(a) * 320.f
+        std::cos(a) * ENEMY_SPEED,
+        std::sin(a) * ENEMY_SPEED
     };
 
     survivalClock.restart();
 }
 
-
-/* ================= RENDER ================= */
-
+// ================= RENDER =================
 void Game::render()
 {
     window.clear(sf::Color::Black);
 
-    if (state == GameState::Playing)
+    if (state == GameState::Menu)
+    {
+        window.draw(startButton);
+        window.draw(exitButton);
+    }
+    else if (state == GameState::Playing)
     {
         window.draw(entities[0].shape);
         window.draw(enemy);
+    }
+    else
+    {
+        window.draw(retryButton);
     }
 
     window.display();
