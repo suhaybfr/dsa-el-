@@ -1,47 +1,72 @@
-# DSA Engine Demo
+# DSA-EL  
+*A simple engine-style game project built with SFML 3 and custom data structures*
 
-A C++ project exploring Data Structures and Algorithms (DSA) through interactive games using SFML.
+---
 
-## Overview
+## 📌 Overview
 
-This project demonstrates the practical application of various custom-implemented data structures in a game development context. The application launches a console menu where users can choose between two different game modes:
+This project is a **game engine–style implementation** developed using **SFML 3** and **custom data structures** as part of a Data Structures & Algorithms learning exercise.
 
-1.  **Survival Game**
-2.  **Platformer Game**
+The goal of the project is to demonstrate:
+- Practical usage of core data structures
+- Separation of game logic from the entry point
+- A console-based menu to select between different game modes:
+  1.  **Survival Game**: A top-down survival experience.
+  2.  **Platformer Game**: A side-scrolling platformer with physics.
 
-## Features
+---
 
-### Custom Data Structures
-The engine relies on handcrafted implementations of core data structures to manage game entities and logic. You can find these implementations in the header files:
--   **Dynamic Array** (`DynamicArray.hpp`): Resizable array implementation.
--   **Linked List** (`LinkedList.hpp`): Singly linked list.
--   **QuadTree** (`QuadTree.hpp`): Spatial partitioning data structure used for efficient collision detection and querying.
--   **Stack** (`Stack.hpp`): LIFO data structure.
--   **Queue** (`Queue.hpp`): FIFO data structure.
+## 🛠️ SFML Setup (Visual Studio)
 
-### Game Modes
--   **Survival Game**: A top-down survival experience where you face waves of enemies.
--   **Platformer Game**: A 2D side-scrolling platformer featuring physics interactions and level navigation.
+To set up **SFML 3** with Visual Studio, please refer to one of the following resources:
 
-## Dependencies
+- 📺 **YouTube Tutorial**:  
+  https://www.youtube.com/watch?v=qvg8BXXWpCE
 
--   **C++ 17** (or later)
--   **SFML** (Simple and Fast Multimedia Library): Used for rendering, window management, and input handling.
+- 🌐 **Official SFML Documentation**:  
+  https://www.sfml-dev.org/tutorials/3.0/getting-started/visual-studio/
 
-## Building and Running
+> ⚠️ SFML binaries are **not included** in this repository and must be set up separately.
 
-This project is configured for **Visual Studio** on Windows.
+---
 
-1.  Clone the repository:
-    ```bash
-    git clone https://github.com/suhaybfr/dsa-el-.git
-    ```
-2.  Open the solution file (`DSA_EL.slnx` or `DSA_EL.vcxproj`) in Visual Studio.
-3.  Ensure the SFML binaries and headers are correctly linked.
-    -   *Note: If the SFML DLLs are missing from the output directory, you may need to copy them there.*
-4.  Build the solution (Ctrl+Shift+B).
-5.  Run the application (F5).
-6.  Follow the on-screen console prompts to select a game mode.
+## ✨ Features
 
-## Author
-[suhaybfr](https://github.com/suhaybfr)
+- Custom **Dynamic Array** (entity storage)
+- **Queue** for input handling
+- **Stack** for survival-time history
+- **Linked List** for collision events
+- **QuadTree-based spatial partitioning** for collision filtering
+- **State-based game loop**
+- Rendering using **SFML 3**
+
+---
+
+## 🎮 Controls
+
+### General
+| Key | Action |
+|----|-------|
+| `Enter` | Confirm / Start |
+
+### Survival Mode
+| Key | Action |
+|----|-------|
+| `W / A / S / D` | Move player |
+| `R` | Retry after game over |
+
+### Platformer Mode
+- **Space**: Jump
+- **A / D**: Move Left/Right
+*(Basic platforming controls)*
+
+---
+
+## 📁 Project Structure
+
+```text
+DSA_EL.cpp      → Entry point (Console Menu)
+Game.hpp/.cpp   → Survival Game Logic
+Game2.cpp       → Platformer Game Logic
+*.hpp           → Custom Data Structures (DynamicArray, LinkedList, etc) and Helpers
+```
