@@ -3,6 +3,8 @@
 #include <cmath>
 #include <cstdlib>
 #include <ctime>
+#include "Menu.hpp"
+
 
 constexpr float PLAYER_SPEED = 250.f;
 constexpr float ENEMY_SPEED = 1550.f;

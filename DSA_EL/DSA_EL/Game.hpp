@@ -9,6 +9,8 @@
 #include "Block.hpp"
 #include "QuadTree.hpp"
 
+// ================= COMMON TYPES =================
+
 struct Command
 {
     sf::Vector2f move;
@@ -20,6 +22,8 @@ enum class GameState
     Playing,
     GameOver
 };
+
+// ================= GAME 1 (SURVIVAL) =================
 
 class Game
 {
@@ -37,7 +41,6 @@ private:
     void updateGameOver();
     void resetGame();
 
-    // mouse helpers
     bool isMouseOver(const sf::RectangleShape& button) const;
     bool isMouseClicked(const sf::RectangleShape& button) const;
 
@@ -66,3 +69,7 @@ private:
 
     bool hasPlayedBefore;
 };
+
+// ================= GAME 2 (PLATFORMER) =================
+// Exposed as another engine-supported game
+void runGame2();
