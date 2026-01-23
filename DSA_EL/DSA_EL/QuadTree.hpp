@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "LinkedList.hpp"
 
+// QuadTree for spatial partitioning (demonstration structure)
 struct QuadTree
 {
     sf::FloatRect boundary;

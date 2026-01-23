@@ -1,15 +1,23 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-// data structures
+// Data structures
 #include "DynamicArray.hpp"
 #include "Queue.hpp"
 #include "Stack.hpp"
 #include "LinkedList.hpp"
-#include "Block.hpp"
 #include "QuadTree.hpp"
+#include "SceneNode.hpp"
 
-// ================= COMMON TYPES =================
+// Engine systems
+#include "Block.hpp"
+#include "ResourceManager.hpp"
+#include "Colors.hpp"
+#include "UI.hpp"
+#include "Particles.hpp"
+#include "InputManager.hpp"
+
+
 
 struct Command
 {
@@ -20,6 +28,7 @@ enum class GameState
 {
     Menu,
     Playing,
+    Paused,
     GameOver
 };
 
@@ -33,43 +42,50 @@ public:
 
 private:
     void processEvents();
-    void update(float dt);
+    void update(sf::Time deltaTime);
     void render();
-
-    void updateMenu();
-    void updateGame(float dt);
-    void updateGameOver();
-    void resetGame();
-
-    bool isMouseOver(const sf::RectangleShape& button) const;
-    bool isMouseClicked(const sf::RectangleShape& button) const;
+    void spawnCollectible();
 
 private:
     sf::RenderWindow window;
-    GameState state;
+    
+    // Resources
+    sf::Font* font;
 
-    sf::Clock deltaClock;
-    sf::Clock survivalClock;
+    // Data structures (DSA Demonstration)
+    Block player; // Square
+    DynamicArray<sf::ConvexShape> collectibles; // Stars - Dynamic resizing array
+    Queue<Command> inputQueue;                   // FIFO input processing
+    Stack<GameState> stateStack;                 // LIFO pause/resume
+    LinkedList<int> scoreHistory;                // Score tracking linked list
+    
+    // Particle system
+    ParticleSystem particles;
 
-    // data structures
-    DynamicArray<Block> entities;
-    Queue<Command> inputQueue;
-    Stack<float> survivalStack;
-    LinkedList<int> collisionEvents;
-    QuadTree quadTree;
-
-    // enemy
+    // Enemy
     sf::CircleShape enemy;
     sf::Vector2f enemyVelocity;
 
-    // GUI
-    sf::RectangleShape startButton;
-    sf::RectangleShape exitButton;
-    sf::RectangleShape retryButton;
+    // UI
+    std::unique_ptr<HUD> hud;
+    
+    // Menu UI (Added for proper menu support)
+    std::unique_ptr<Button> startButton;
+    std::unique_ptr<Button> exitButton;
+    std::unique_ptr<Button> retryButton;
+    std::unique_ptr<Button> menuButton;
+    
+    // Background Grid (Cached for performance)
+    sf::VertexArray grid;
 
-    bool hasPlayedBefore;
+    // Game state
+    GameState state;
+    bool isGameOver;
+    bool gameWon;
+    float survivalTime;
+    float collectibleSpawnTimer;
+    int collectiblesCollected;
 };
 
-// ================= GAME 2 (PLATFORMER) =================
-// Exposed as another engine-supported game
+// ================= GAME 2 (DASH) =================
 void runGame2();

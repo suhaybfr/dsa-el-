@@ -39,9 +39,6 @@
     <ClCompile Include="Game2.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Menu.cpp">
-      <Filter>Engine\Core</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.hpp">
@@ -74,13 +71,5 @@
     <ClInclude Include="Physics.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Menu.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="..\..\arial\ARIAL.TTF">
-      <Filter>Engine\Core</Filter>
-    </Font>
   </ItemGroup>
 </Project>

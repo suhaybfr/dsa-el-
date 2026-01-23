@@ -1,0 +1,22 @@
+# Build artifacts
+x64/
+Debug/
+Release/
+*.obj
+*.exe
+*.pdb
+*.log
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.opensdf
+*.sdf
+
+# Archives
+*.rar
+*.zip
+
+# Engine documentation (not for public)
+DSA_EL/ENGINE_ARCHITECTURE.md

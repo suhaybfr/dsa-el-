@@ -136,24 +136,24 @@
     <ClCompile Include="DSA_EL.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Game2.cpp" />
-    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.hpp" />
+    <ClInclude Include="Colors.hpp" />
     <ClInclude Include="DynamicArray.hpp" />
     <ClInclude Include="Game.hpp" />
+    <ClInclude Include="InputManager.hpp" />
     <ClInclude Include="LinkedList.hpp" />
-    <ClInclude Include="Menu.hpp" />
+    <ClInclude Include="Particles.hpp" />
     <ClInclude Include="Physics.hpp" />
     <ClInclude Include="QuadTree.hpp" />
     <ClInclude Include="Queue.hpp" />
+    <ClInclude Include="ResourceManager.hpp" />
     <ClInclude Include="SceneNode.hpp" />
     <ClInclude Include="Stack.hpp" />
+    <ClInclude Include="UI.hpp" />
     <ClInclude Include="Window.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="..\..\arial\ARIAL.TTF" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -8,6 +8,42 @@ public:
         : m_data(nullptr), m_size(0), m_capacity(0) {
     }
 
+    // Copy constructor
+    DynamicArray(const DynamicArray& other)
+        : m_data(nullptr), m_size(0), m_capacity(0)
+    {
+        if (other.m_size > 0)
+        {
+            m_capacity = other.m_capacity;
+            m_size = other.m_size;
+            m_data = new T[m_capacity];
+            for (int i = 0; i < m_size; ++i)
+                m_data[i] = other.m_data[i];
+        }
+    }
+
+    // Copy assignment operator
+    DynamicArray& operator=(const DynamicArray& other)
+    {
+        if (this != &other)
+        {
+            delete[] m_data;
+            m_data = nullptr;
+            m_size = 0;
+            m_capacity = 0;
+
+            if (other.m_size > 0)
+            {
+                m_capacity = other.m_capacity;
+                m_size = other.m_size;
+                m_data = new T[m_capacity];
+                for (int i = 0; i < m_size; ++i)
+                    m_data[i] = other.m_data[i];
+            }
+        }
+        return *this;
+    }
+
     ~DynamicArray()
     {
         delete[] m_data;
@@ -26,9 +62,19 @@ public:
         return m_data[index];
     }
 
+    const T& operator[](int index) const
+    {
+        return m_data[index];
+    }
+
     int size() const
     {
         return m_size;
+    }
+
+    void clear()
+    {
+        m_size = 0;
     }
 
 private:

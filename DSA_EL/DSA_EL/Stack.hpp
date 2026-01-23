@@ -4,7 +4,8 @@ template<typename T, int MAX_SIZE = 100>
 class Stack
 {
 public:
-    Stack() : top(-1) {}
+    // Initialize data array to zeros/default
+    Stack() : top(-1), data() {}
 
     bool push(const T& value)
     {
