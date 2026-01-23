@@ -118,5 +118,23 @@ A **game engine–style project** built for a Data Structures & Algorithms cours
 ---
 
 ## 📁 Structure
-DSA_EL/ ├── DSA_EL.cpp # Entry point + console menu ├── Game.cpp/hpp # Survival game logic ├── Game2.cpp # Dash game logic ├── DynamicArray.hpp # Custom dynamic array ├── Queue.hpp # Circular queue ├── Stack.hpp # Stack implementation ├── LinkedList.hpp # Singly linked list ├── QuadTree.hpp # Spatial partitioning ├── SceneNode.hpp # Tree hierarchy ├── UI.hpp # Button, Panel, Label, HUD ├── Particles.hpp # Particle effects ├── ResourceManager.hpp # Asset caching ├── InputManager.hpp # Input handling ├── Colors.hpp # Color palette ├── Physics.hpp # Collision helpers └── Block.hpp # Game entity struct
+| File | Description |
+|------|-------------|
+| [DSA_EL.cpp](cci:7://file:///c:/vss/DSA_EL/DSA_EL/DSA_EL.cpp:0:0-0:0) | Entry point + console menu |
+| `Game.cpp/hpp` | Survival game logic |
+| [Game2.cpp](cci:7://file:///c:/vss/DSA_EL/DSA_EL/Game2.cpp:0:0-0:0) | Dash game logic |
+| [DynamicArray.hpp](cci:7://file:///c:/vss/DSA_EL/DSA_EL/DynamicArray.hpp:0:0-0:0) | Custom dynamic array |
+| [Queue.hpp](cci:7://file:///c:/vss/DSA_EL/DSA_EL/Queue.hpp:0:0-0:0) | Circular queue |
+| [Stack.hpp](cci:7://file:///c:/vss/DSA_EL/DSA_EL/Stack.hpp:0:0-0:0) | Stack implementation |
+| [LinkedList.hpp](cci:7://file:///c:/vss/DSA_EL/DSA_EL/LinkedList.hpp:0:0-0:0) | Singly linked list |
+| [QuadTree.hpp](cci:7://file:///c:/vss/DSA_EL/DSA_EL/QuadTree.hpp:0:0-0:0) | Spatial partitioning |
+| [SceneNode.hpp](cci:7://file:///c:/vss/DSA_EL/DSA_EL/SceneNode.hpp:0:0-0:0) | Tree hierarchy |
+| [UI.hpp](cci:7://file:///c:/vss/DSA_EL/DSA_EL/UI.hpp:0:0-0:0) | Button, Panel, Label, HUD |
+| [Particles.hpp](cci:7://file:///c:/vss/DSA_EL/DSA_EL/Particles.hpp:0:0-0:0) | Particle effects |
+| [ResourceManager.hpp](cci:7://file:///c:/vss/DSA_EL/DSA_EL/ResourceManager.hpp:0:0-0:0) | Asset caching |
+| [InputManager.hpp](cci:7://file:///c:/vss/DSA_EL/DSA_EL/InputManager.hpp:0:0-0:0) | Input handling |
+| [Colors.hpp](cci:7://file:///c:/vss/DSA_EL/DSA_EL/Colors.hpp:0:0-0:0) | Color palette |
+| [Physics.hpp](cci:7://file:///c:/vss/DSA_EL/DSA_EL/Physics.hpp:0:0-0:0) | Collision helpers |
+| [Block.hpp](cci:7://file:///c:/vss/DSA_EL/DSA_EL/Block.hpp:0:0-0:0) | Game entity struct |
+
 
